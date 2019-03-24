@@ -1,5 +1,6 @@
 package com.arcsq.poc.springcloud.xi18n.controller;
 
+import com.arcsq.poc.springcloud.xi18n.model.LanguagePack;
 import com.arcsq.poc.springcloud.xi18n.service.LanguageResourceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,8 +17,8 @@ public class LanguageController {
     private LanguageResourceService languageResourceService;
 
     @GetMapping(path = "/language-pack/{app}/{lang}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Map<String, String> getLanguagePack(@PathVariable("app") final String app,
-                                               @PathVariable("lang") final String lang) {
+    public LanguagePack getLanguagePack(@PathVariable("app") final String app,
+                                        @PathVariable("lang") final String lang) {
         return languageResourceService.getResourceBundle(app, lang);
     }
 
