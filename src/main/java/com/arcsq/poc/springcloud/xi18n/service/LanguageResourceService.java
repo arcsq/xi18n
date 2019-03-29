@@ -6,8 +6,13 @@ import com.arcsq.poc.springcloud.xi18n.model.LanguagePack;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.Map;
 import java.util.TreeMap;
@@ -15,17 +20,26 @@ import java.util.TreeMap;
 @Service
 public class LanguageResourceService {
 
+    private static final String CACHE_NAME = "languagepacks";
+
     @Value("${spring.profiles.active:local}")
     private String profile;
 
     @Autowired
     private ResourceBundleConfigClient resourceBundleConfigClient;
 
+    @Cacheable(value = CACHE_NAME)
     public LanguagePack getResourceBundle(final String appName, final String langId) {
+        System.out.println("Reading pack...");
         final ProfileMapping mapping = ProfileMapping.findByProfile(profile);
         final String bundle = resourceBundleConfigClient.getLanguagePack(mapping.getBranch(), appName, langId);
         return parseBundle(bundle);
     }
+
+    @CacheEvict(value = CACHE_NAME)
+    public void clearLanguagePackCache(final String app, final String langId) {
+    }
+
 
     private LanguagePack parseBundle(final String bundle) {
         final String[] properties = StringUtils.split(bundle, "\n");

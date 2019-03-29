@@ -20,17 +20,16 @@ public class LanguageController {
     private LanguageResourceService languageResourceService;
 
     @GetMapping(path = "/language-pack/{app}/{lang}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @Cacheable("languagepacks")
     public LanguagePack getLanguagePack(@PathVariable("app") final String app,
                                         @PathVariable("lang") final String lang) throws Exception {
         return languageResourceService.getResourceBundle(app, lang);
     }
 
     @GetMapping(path = "/refresh-language-pack/{app}/{lang}")
-    @CacheEvict("languagepacks")
     public String evictLanguagePackCache(@PathVariable("app") final String app,
-                                       @PathVariable("lang") final String lang) {
-        return "Cache cleared for App: " + app + " and Lang id: " + lang;
+                                         @PathVariable("lang") String lang) {
+        languageResourceService.clearLanguagePackCache(app, lang);
+        return "Cache cleared for App: " + app;
     }
 
 }
