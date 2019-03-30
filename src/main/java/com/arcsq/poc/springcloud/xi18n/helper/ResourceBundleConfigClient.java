@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 @FeignClient(name = "lang", url = "http://localhost:8888")
 public interface ResourceBundleConfigClient {
 
-    @GetMapping(path = "/config/{realm}/{application}-{language}.properties")
-    String getLanguagePack(@PathVariable("realm") String realm, @PathVariable("application") String resource,
+    @GetMapping(path = "/config/{realm}/{resource}-{language}.properties")
+    String getLanguagePack(@PathVariable("realm") String realm, @PathVariable("resource") String resource,
                            @PathVariable("language") String langId);
 
 }
