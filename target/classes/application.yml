@@ -1,6 +1,0 @@
-# http.mappers.json-pretty-print: true
-spring:
-  jackson:
-    serialization:
-      indent-output: true
-
