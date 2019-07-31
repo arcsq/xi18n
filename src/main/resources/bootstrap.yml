@@ -3,11 +3,15 @@ spring:
   cloud:
     config:
       server:
-        bootstrap: true
+        # bootstrap: true
         git:
-          uri: file://${user.home}/office/workspaces/poc/language-resources
+          # uri: file://${user.home}/office/workspaces/poc/language-resources
+          uri: https://bitbucket.org/bangaloreitc/config-repo
           # config-data
-          clone-on-start: false
+          clone-on-start: true
+          search-paths:
+            - lang
+            - language
         prefix: /config
   profiles:
     active: prod

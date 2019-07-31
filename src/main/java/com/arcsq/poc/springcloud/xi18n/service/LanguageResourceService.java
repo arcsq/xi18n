@@ -36,10 +36,10 @@ public class LanguageResourceService {
     }
 
     @Cacheable(value = CACHE_NAME)
-    public LanguagePack getResourceBundle(final String app, final String resource, final String langId) {
+    public LanguagePack getResourceBundle(final String resource, final String langId) {
         log.info("Loading parsed bundle...");
         final ProfileMapping mapping = ProfileMapping.findByProfile(profile);
-        final String bundle = resourceBundleConfigClient.getLanguagePack(app + "-" + mapping.getBranch(), resource, langId);
+        final String bundle = resourceBundleConfigClient.getLanguagePack(mapping.getBranch(), resource, langId);
         final LanguagePack pack = new LanguagePack();
         pack.setLanguage(langId);
         pack.setRealm(profile);
@@ -51,7 +51,7 @@ public class LanguageResourceService {
     }
 
     @CacheEvict(value = CACHE_NAME)
-    public void clearLanguagePackCache(final String app, final String resource, final String langId) {
+    public void clearLanguagePackCache(final String resource, final String langId) {
     }
 
 }
