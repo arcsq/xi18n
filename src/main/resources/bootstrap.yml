@@ -5,8 +5,8 @@ spring:
       server:
         # bootstrap: true
         git:
-          # uri: file://${user.home}/office/workspaces/poc/language-resources
-          uri: https://bitbucket.org/bangaloreitc/config-repo
+          uri: file://${user.home}/office/workspaces/poc/language-resources
+          # uri: https://bitbucket.org/bangaloreitc/config-repo
           # config-data
           clone-on-start: true
           search-paths:
@@ -14,4 +14,4 @@ spring:
             - language
         prefix: /config
   profiles:
-    active: prod
+    active: dev
