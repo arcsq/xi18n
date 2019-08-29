@@ -50,6 +50,13 @@ public class LanguageResourceService {
         return pack;
     }
 
+    @Cacheable(value = CACHE_NAME)
+    public String getSupportedLanguages(final String app) {
+        log.info("Loading supported languages...");
+        final ProfileMapping mapping = ProfileMapping.findByProfile(profile);
+        return resourceBundleConfigClient.getMetadata(mapping.getBranch());
+    }
+
     @CacheEvict(value = CACHE_NAME)
     public void clearLanguagePackCache(final String app, final String resource, final String langId) {
     }

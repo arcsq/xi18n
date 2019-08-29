@@ -21,6 +21,11 @@ public class LanguageController {
         return languageResourceService.getResourceBundle(app, resource, lang);
     }
 
+    @GetMapping(path = "/supported-languages/{app}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public String getSupportedLanguages(@PathVariable("app") final String app) throws Exception {
+        return languageResourceService.getSupportedLanguages(app);
+    }
+
     @GetMapping(path = "/refresh-language-pack/{app}/{resource}/{lang}")
     public String evictLanguagePackCache(@PathVariable("app") final String app,
                                          @PathVariable("resource") final String resource,

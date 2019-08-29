@@ -10,4 +10,4 @@ spring:
           clone-on-start: false
         prefix: /config
   profiles:
-    active: prod
+    active: dev
