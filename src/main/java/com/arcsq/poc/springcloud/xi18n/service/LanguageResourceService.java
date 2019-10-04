@@ -1,9 +1,9 @@
 package com.arcsq.poc.springcloud.xi18n.service;
 
-import com.arcsq.poc.springcloud.xi18n.helper.ProfileMapping;
-import com.arcsq.poc.springcloud.xi18n.helper.ResourceBundleConfigClient;
-import com.arcsq.poc.springcloud.xi18n.model.LanguagePack;
-import lombok.extern.slf4j.Slf4j;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,8 +11,11 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import java.util.Map;
-import java.util.TreeMap;
+import com.arcsq.poc.springcloud.xi18n.helper.ProfileMapping;
+import com.arcsq.poc.springcloud.xi18n.helper.ResourceBundleConfigClient;
+import com.arcsq.poc.springcloud.xi18n.model.LanguagePack;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -33,6 +36,18 @@ public class LanguageResourceService {
             map.put(StringUtils.trim(resource[0]), resource.length == 2 ? StringUtils.trim(resource[1]) : "");
         }
         return map;
+    }
+
+    @Cacheable(value = CACHE_NAME)
+    public Map<String, LanguagePack> getResourceBundles(final String app, final String resources, final String langId) {
+        log.info("Loading parsed bundles...");
+        	final String resourceArray[] = StringUtils.split(resources, ",");
+        	final Map<String, LanguagePack> languagePackMap = new HashMap<String, LanguagePack>();
+        for (final String resource: resourceArray) {
+        		final LanguagePack pack = getResourceBundle(app, resource, langId);
+        		languagePackMap.put(resource, pack);
+        }
+        return languagePackMap;
     }
 
     @Cacheable(value = CACHE_NAME)

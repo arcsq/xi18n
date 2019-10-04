@@ -8,6 +8,7 @@ spring:
           uri: file://${user.home}/office/workspaces/poc/language-resources
           # config-data
           clone-on-start: false
+          searchPaths: x	
         prefix: /config
   profiles:
     active: dev

@@ -3,4 +3,12 @@ spring:
   jackson:
     serialization:
       indent-output: true
-
+management:
+  endpoints:
+    web:
+      base-path: /management
+      exposure:
+        include: loggers
+  endpoint:
+    restart:
+      enabled: true
