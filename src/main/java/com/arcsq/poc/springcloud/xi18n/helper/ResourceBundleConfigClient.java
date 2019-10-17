@@ -14,8 +14,7 @@ public interface ResourceBundleConfigClient {
                            @PathVariable("language") String langId);
 
     @GetMapping(path = "/config/{realm}/supported-languages.json")
-    String getSupportedLanguages(@PathVariable("realm") String realm, @PathVariable("resource") String resource,
-                           @PathVariable("language") String langId);
+    String getSupportedLanguages(@PathVariable("realm") String realm);
 
     @GetMapping(path = "/config/{realm}/xi18n-metadata.json")
     String getMetadata(@PathVariable("realm") String realm);

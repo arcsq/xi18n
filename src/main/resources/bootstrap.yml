@@ -7,7 +7,7 @@ spring:
         git:
           uri: file://${user.home}/office/workspaces/poc/language-resources
           # config-data
-          clone-on-start: false
+          clone-on-start: true
           searchPaths: x	
         prefix: /config
   profiles:

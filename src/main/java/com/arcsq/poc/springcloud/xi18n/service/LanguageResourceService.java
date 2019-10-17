@@ -69,7 +69,7 @@ public class LanguageResourceService {
     public String getSupportedLanguages(final String app) {
         log.info("Loading supported languages...");
         final ProfileMapping mapping = ProfileMapping.findByProfile(profile);
-        return resourceBundleConfigClient.getMetadata(mapping.getBranch());
+        return resourceBundleConfigClient.getSupportedLanguages(app + "-" + mapping.getBranch());
     }
 
     @CacheEvict(value = CACHE_NAME)
