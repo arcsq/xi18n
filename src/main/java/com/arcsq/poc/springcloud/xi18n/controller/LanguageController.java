@@ -21,6 +21,11 @@ public class LanguageController {
     public LanguagePack getLanguagePack(@PathVariable("app") final String app,
                                         @PathVariable("resource") final String resource,
                                         @PathVariable("lang") final String lang) throws Exception {
+        Integer i = null;
+        if (false == true) {
+            i = 10;
+        }
+        System.out.println(i.toString());
         return languageResourceService.getResourceBundle(app, resource, lang);
     }
 
