@@ -22,10 +22,12 @@ public class LanguageController {
                                         @PathVariable("resource") final String resource,
                                         @PathVariable("lang") final String lang) throws Exception {
         Integer i = null;
+        String firstName = "Sunil";
+	String creditCardNumber = null;
         if (false == true) {
             i = 10;
         }
-        System.out.println(i.toString());
+        System.out.println(i.toString()) + firstName + creditCardNumber;
         return languageResourceService.getResourceBundle(app, resource, lang);
     }
 
